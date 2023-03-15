@@ -40,11 +40,14 @@ public class AddItem extends HttpServlet {
         try {
             // Gem data
             ItemFacade.addItem(newItem,user.getUsername(), connectionPool);
+
             // Hent alle items fra DB igen
             List<Item> itemList = ItemFacade.getAllItems(connectionPool);
             request.setAttribute("itemList", itemList);
+
             // Forwad tilbage til welcome siden
-            request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+           // request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+            response.sendRedirect("viewitems");
 
         } catch (DatabaseException e) {
             request.setAttribute("errormessage", e.getMessage());

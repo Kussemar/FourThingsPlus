@@ -59,7 +59,8 @@ public class Login extends HttpServlet
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
 
-            request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+           // request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+            response.sendRedirect("viewitems");
         }
         catch (DatabaseException e)
         {

@@ -23,11 +23,13 @@
 
             <table class="table table-striped mt-4">
                 <c:forEach var="item" items="${requestScope.itemList}">
-                    <td>
-                    <td> ${item.name}</td>
-                    <td>${item.created}</td>
-                    <td>
-                        <button type="submit" class="btn btn-outline-success btm-sm">Done</button>
+                    <tr>
+                    <td class="text-start align-middle"> ${item.name}</td>
+                    <td  class="text-center align-middle">${item.created}</td>
+                    <td class="text-end">
+                        <button type="submit" class="ms-2 btn btn-outline-success btm-sm col-2">Done</button>
+                        <button type="submit" class="ms-2 btn btn-outline-warning btm-sm col-2">Edit</button>
+                        <button type="submit" class="ms-2 btn btn-outline-danger btm-sm col-2">Delete</button>
                     </td>
                     </tr>
                 </c:forEach>

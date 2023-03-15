@@ -51,18 +51,18 @@
 </div>
 
 <!-- Footer -->
-<div class="container mt-3">
+<div class="container mt-6">
     <hr/>
     <div class="row mt-4">
-        <div class="col">
+        <div class="col text-start">
             Nørgaardsvej 30<br/>
             2800 Lyngby
         </div>
-        <div class="col">
+        <div class="col text-center">
             <jsp:invoke fragment="footer"/><br/>
             <p>&copy; 2022 Cphbusiness</p>
         </div>
-        <div class="col">
+        <div class="col text-end">
             Datamatikeruddannelsen<br/>
             2. semester efterår 2022
         </div>
