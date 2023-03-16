@@ -43,9 +43,6 @@ public class AddItem extends HttpServlet {
                     ItemFacade.toggleItem(id, connectionPool);
                     // SEnd til DB at den er done
                     break;
-                case "edit":
-                    // send til db og måske ny side
-                    break;
                 case "delete":
                     ItemFacade.deleteItem(id, connectionPool);
                     // fjern fra DB

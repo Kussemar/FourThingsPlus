@@ -78,4 +78,44 @@ public class ItemMapper {
         }
     }
 
+    public static Item getItemById(int item_id, ConnectionPool connectionPool) throws DatabaseException {
+
+        String sql = "SELECT * FROM item WHERE item_id = ?;";
+
+                try (Connection connection = connectionPool.getConnection()) {
+                    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                        ps.setInt(1,item_id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    int itemId = rs.getInt("item_id");
+                    String name = rs.getString("name");
+                    boolean done = rs.getBoolean("done");
+                    String userName = rs.getString("username");
+                    Timestamp created = rs.getTimestamp("created");
+
+                    Item newItem = new Item(itemId, name, done, userName, created);
+                   return newItem;
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Fejl i tilgangen til databasen");
+        }
+        return null;
+
+    }
+
+    public static void updateItemName(int item_id, String name, ConnectionPool connectionPool) {
+        String sql = "UPDATE item SET name = ? WHERE item_id = ?;";
+        try(Connection connection = connectionPool.getConnection()){
+
+            try(PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setString(1,name);
+                ps.setInt(2,item_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

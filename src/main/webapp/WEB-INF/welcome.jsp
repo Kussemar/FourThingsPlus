@@ -28,13 +28,16 @@
                             <td class="text-start align-middle"> ${item.name}</td>
                             <td class="text-center align-middle">${item.created}</td>
                             <td class="text-end">
-                                <button formaction="additem" type="submit" class="ms-2 btn btn-outline-success btm-sm col-2" name="action"
+                                <button formaction="additem" type="submit"
+                                        class="ms-2 btn btn-outline-success btm-sm col-2" name="action"
                                         value="done-${item.itemId}">Done
                                 </button>
-                                <button formaction="additem" type="submit" class="ms-2 btn btn-outline-warning btm-sm col-2" name="action"
-                                        value="edit-${item.itemId}">Edit
+                                <button formaction="editform" type="submit"
+                                        class="ms-2 btn btn-outline-warning btm-sm col-2" name="item_id"
+                                        value="${item.itemId}">Edit
                                 </button>
-                                <button formaction="additem" type="submit" class="ms-2 btn btn-outline-danger btm-sm col-2" name="action"
+                                <button formaction="additem" type="submit"
+                                        class="ms-2 btn btn-outline-danger btm-sm col-2" name="action"
                                         value="delete-${item.itemId}">Delete
                                 </button>
                             </td>
@@ -53,8 +56,10 @@
                             <td class="text-start align-middle"> ${item.name}</td>
                             <td class="text-center align-middle">${item.created}</td>
                             <td class="text-end">
-                                <button formaction="additem" type="submit" class="ms-6 btn btn-outline-success btm-sm col-6" name="action"
-                                        value="done-${item.itemId}">Undo</button>
+                                <button formaction="additem" type="submit"
+                                        class="ms-6 btn btn-outline-success btm-sm col-6" name="action"
+                                        value="done-${item.itemId}">Undo
+                                </button>
                             </td>
                         </tr>
                     </c:if>
