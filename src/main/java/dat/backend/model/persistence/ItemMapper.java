@@ -36,6 +36,32 @@ public class ItemMapper {
         }
         return itemList;
     }
+    public static void toggleItem(int item_id, ConnectionPool connectionPool) {
+    String sql = "UPDATE item SET done = (1 - done) WHERE item_id = ?;";
+    try(Connection connection = connectionPool.getConnection()){
+
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setInt(1,item_id);
+            ps.executeUpdate();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    }
+
+    public static void deleteItem(int item_id, ConnectionPool connectionPool){
+        String sql = "DELETE FROM item WHERE item_id = ?;";
+        try(Connection connection = connectionPool.getConnection()){
+
+            try(PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setInt(1,item_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void addItem(String newItem, String username, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");

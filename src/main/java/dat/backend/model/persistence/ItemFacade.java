@@ -15,4 +15,13 @@ public class ItemFacade
     public static void addItem(String newItem, String username, ConnectionPool connectionPool) throws DatabaseException {
         ItemMapper.addItem(newItem, username, connectionPool);
     }
+
+    public static void toggleItem(int item_id, ConnectionPool connectionPool) {
+        ItemMapper.toggleItem(item_id, connectionPool);
+
+    }
+
+    public static void deleteItem(int item_id, ConnectionPool connectionPool) {
+        ItemMapper.deleteItem(item_id, connectionPool);
+    }
 }
