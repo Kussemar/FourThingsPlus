@@ -2,6 +2,7 @@ package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Item;
+import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.ItemFacade;
@@ -24,9 +25,17 @@ public class ViewItems extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 // Hent alle items fra DB igen
+
+        HttpSession session = request.getSession(); // Giver os session objektet, fra da man loggede ind. Så gemmer den i sessionscopet, som den her linje hjælper med.
+        User user = (User) session.getAttribute("user");
+
+        if(user == null){
+            request.getRequestDispatcher("index.jsp").forward(request,response);
+        }
+
         List<Item> itemList = null;
         try {
-            itemList = ItemFacade.getAllItems(connectionPool);
+            itemList = ItemFacade.getAllItems(user.getUsername(), connectionPool);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }

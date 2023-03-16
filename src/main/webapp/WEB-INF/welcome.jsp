@@ -22,6 +22,12 @@
             <button formaction="additem" type="submit" class="align-baseline btn btn-outline-success">Add</button>
 
             <table class="table table-striped mt-4">
+                <!--   <th>
+                   <td class="text-start">Name</td>
+                   <td class="text-center">Date created</td>
+                   <td class="text-end">Actions</td>
+                   <th/>
+                -->
                 <c:forEach var="item" items="${requestScope.itemList}">
                     <c:if test="${!item.done}">
                         <tr>
@@ -57,8 +63,12 @@
                             <td class="text-center align-middle">${item.created}</td>
                             <td class="text-end">
                                 <button formaction="additem" type="submit"
-                                        class="ms-6 btn btn-outline-success btm-sm col-6" name="action"
-                                        value="done-${item.itemId}">Undo
+                                        class="ms-2 btn btn-outline-success btm-sm col-2" name="action"
+                                        value="undo-${item.itemId}">Undo
+                                </button>
+                                <button formaction="additem" type="submit"
+                                        class="ms-2 btn btn-outline-danger btm-sm col-2" name="action"
+                                        value="delete-${item.itemId}">Delete
                                 </button>
                             </td>
                         </tr>

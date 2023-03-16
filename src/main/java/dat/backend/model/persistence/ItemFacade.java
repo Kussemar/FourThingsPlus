@@ -7,9 +7,9 @@ import java.util.List;
 
 public class ItemFacade
 {
-    public static List<Item> getAllItems(ConnectionPool connectionPool) throws DatabaseException
+    public static List<Item> getAllItems(String username, ConnectionPool connectionPool) throws DatabaseException
     {
-        return ItemMapper.getAllItems(connectionPool);
+        return ItemMapper.getAllItems(username, connectionPool);
     }
 
     public static void addItem(String newItem, String username, ConnectionPool connectionPool) throws DatabaseException {
@@ -33,5 +33,8 @@ public class ItemFacade
     public static void updateItemName(int item_id, String name, ConnectionPool connectionPool) {
 
         ItemMapper.updateItemName(item_id, name, connectionPool);
+    }
+    public static void updateItemToNewTimestamp(int item_id, ConnectionPool connectionPool){
+        ItemMapper.updateItemToNewTimestamp(item_id, connectionPool);
     }
 }

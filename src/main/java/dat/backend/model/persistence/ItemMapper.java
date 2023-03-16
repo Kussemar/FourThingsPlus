@@ -11,14 +11,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ItemMapper {
-    static List<Item> getAllItems(ConnectionPool connectionPool) throws DatabaseException {
+    static List<Item> getAllItems(String username, ConnectionPool connectionPool) throws DatabaseException {
 
-        String sql = "select * from item";
+        String sql = "select * from item WHERE username = ?";
 
         List<Item> itemList = new ArrayList<>();
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1,username);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int itemId = rs.getInt("item_id");
@@ -36,25 +37,26 @@ public class ItemMapper {
         }
         return itemList;
     }
+
     public static void toggleItem(int item_id, ConnectionPool connectionPool) {
-    String sql = "UPDATE item SET done = (1 - done) WHERE item_id = ?;";
-    try(Connection connection = connectionPool.getConnection()){
+        String sql = "UPDATE item SET done = (1 - done) WHERE item_id = ?;";
+        try (Connection connection = connectionPool.getConnection()) {
 
-        try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1,item_id);
-            ps.executeUpdate();
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, item_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
     }
 
-    public static void deleteItem(int item_id, ConnectionPool connectionPool){
+    public static void deleteItem(int item_id, ConnectionPool connectionPool) {
         String sql = "DELETE FROM item WHERE item_id = ?;";
-        try(Connection connection = connectionPool.getConnection()){
+        try (Connection connection = connectionPool.getConnection()) {
 
-            try(PreparedStatement ps = connection.prepareStatement(sql)){
-                ps.setInt(1,item_id);
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, item_id);
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
@@ -82,9 +84,9 @@ public class ItemMapper {
 
         String sql = "SELECT * FROM item WHERE item_id = ?;";
 
-                try (Connection connection = connectionPool.getConnection()) {
-                    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                        ps.setInt(1,item_id);
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, item_id);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int itemId = rs.getInt("item_id");
@@ -94,7 +96,7 @@ public class ItemMapper {
                     Timestamp created = rs.getTimestamp("created");
 
                     Item newItem = new Item(itemId, name, done, userName, created);
-                   return newItem;
+                    return newItem;
                 }
             }
         } catch (SQLException e) {
@@ -106,11 +108,11 @@ public class ItemMapper {
 
     public static void updateItemName(int item_id, String name, ConnectionPool connectionPool) {
         String sql = "UPDATE item SET name = ? WHERE item_id = ?;";
-        try(Connection connection = connectionPool.getConnection()){
+        try (Connection connection = connectionPool.getConnection()) {
 
-            try(PreparedStatement ps = connection.prepareStatement(sql)){
-                ps.setString(1,name);
-                ps.setInt(2,item_id);
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, name);
+                ps.setInt(2, item_id);
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
@@ -118,4 +120,19 @@ public class ItemMapper {
         }
 
     }
+
+    public static void updateItemToNewTimestamp(int item_id, ConnectionPool connectionPool) {
+        String sql = "UPDATE item SET created = CURRENT_TIMESTAMP WHERE item_id = ?;";
+        try (Connection connection = connectionPool.getConnection()) {
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, item_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

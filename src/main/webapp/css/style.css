@@ -14,3 +14,7 @@ th, td {
 p{
     font-weight: normal;
 }
+
+.bolded{
+    font-weight: bold;
+}

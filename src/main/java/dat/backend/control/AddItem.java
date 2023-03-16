@@ -41,6 +41,11 @@ public class AddItem extends HttpServlet {
             switch (action) {
                 case "done":
                     ItemFacade.toggleItem(id, connectionPool);
+                    ItemFacade.updateItemToNewTimestamp(id,connectionPool);
+                    // SEnd til DB at den er done
+                    break;
+                case "undo":
+                    ItemFacade.toggleItem(id, connectionPool);
                     // SEnd til DB at den er done
                     break;
                 case "delete":
@@ -62,7 +67,7 @@ public class AddItem extends HttpServlet {
                 ItemFacade.addItem(newItem, user.getUsername(), connectionPool);
 
                 // Hent alle items fra DB igen
-                List<Item> itemList = ItemFacade.getAllItems(connectionPool);
+                List<Item> itemList = ItemFacade.getAllItems(user.getUsername(), connectionPool);
                 request.setAttribute("itemList", itemList);
 
 

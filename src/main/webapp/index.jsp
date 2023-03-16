@@ -17,7 +17,7 @@
         <p>Startcode for 2nd semester </p>
 
         <c:if test="${sessionScope.user != null}">
-            <p>You are logged in with the role of "${sessionScope.user.role}".</p><b/>
+            <p class="bolded">You are logged in with the role of "${sessionScope.user.role}".</p><b/>
         </c:if>
 
         <c:if test="${sessionScope.user != null}">
@@ -25,8 +25,11 @@
         </c:if>
 
         <c:if test="${sessionScope.user == null}">
-            <p>You are not logged in yet. You can do it here: <a
+            <p class="bolded">You are not logged in yet. <p/>
+                <p> You can do it here: <a
                     href="login.jsp">Login</a></p>
+            <p> Or register here: <a
+                    href="register.jsp">Register</a></p>
         </c:if>
 
     </jsp:body>

@@ -6,27 +6,34 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             Login
+             Register
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-            Login
+            Register
     </jsp:attribute>
 
     <jsp:body>
 
-        <h3>You can log in here</h3>
+        <h3>You can register here</h3>
 
-        <form action="login" method="post">
+        <c:if test="${requestScope.message != null}">
+            <p>${requestScope.message}</p>
+        </c:if>
+
+        <form action="register" method="post">
             <label for="username">Username: </label>
             <input type="text" id="username" name="username"/>
             <label for="password">Password: </label>
             <input type="password" id="password" name="password"/>
-            <input type="submit"  value="Log in"/>
+            <label for="password">Confirm password: </label>
+            <input type="password" id="confirmpassword" name="confirmpassword"/>
+            <input type="submit"  value="register"/>
         </form>
 
-        <p> Or register here: <a
-                href="register.jsp">Register</a></p>
+
+        <p> Or login here: <a
+                href="login.jsp">Log in</a></p>
 
     </jsp:body>
 </t:pagetemplate>
